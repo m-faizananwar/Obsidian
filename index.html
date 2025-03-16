@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsidian-inspired Todo</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Cute font - Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- JoyPixels for cute emojis -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-toolkit@7.0.0/lib/js/joypixels.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-toolkit@7.0.0/extras/css/joypixels.min.css">
+    
+    <!-- Animate.css for additional animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Tippy.js for tooltips -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            bg: '#fef6ff',
+                            darkBg: '#2a1b37',
+                            accent: '#c99bff',
+                            secondary: '#ff9dd2',
+                            tertiary: '#a6e3e9',
+                            text: '#40304a',
+                            darkText: '#e9d8ff',
+                            muted: '#9a86a5'
+                        }
+                    },
+                    fontFamily: {
+                        cute: ['Quicksand', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                        'pulse-gentle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-pastel-darkBg text-pastel-darkText font-cute">
+    <div class="flex h-screen overflow-hidden flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div class="w-full md:w-64 bg-opacity-80 bg-pastel-darkBg p-4 flex flex-col shadow-lg animate__animated animate__fadeIn">
+            <!-- Vault selector -->
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center bg-pastel-darkBg bg-opacity-50 px-3 py-2 rounded-lg border border-pastel-muted border-opacity-20 w-full cursor-pointer hover:bg-opacity-70 transition-all" id="vault-selector">
+                    <span class="jpa-file_folder text-xl mr-2 text-pastel-accent"></span>
+                    <span id="current-vault-name" class="text-sm text-pastel-darkText truncate">Loading vault...</span>
+                    <span class="ml-auto text-pastel-muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <h1 class="text-2xl font-bold text-pastel-accent mb-6 flex items-center">
+                <span class="jpa-star_struck text-2xl mr-2"></span> Dreamy Notes
+            </h1>
+            
+            <div class="mb-4">
+                <button id="new-task-btn" class="bg-pastel-accent bg-opacity-30 hover:bg-opacity-40 text-pastel-darkText w-full py-2 rounded-lg flex items-center justify-center transition-all shadow-sm hover:-translate-y-1 hover:shadow-md">
+                    <span class="jpa-pencil text-xl mr-2"></span> New Task
+                </button>
+            </div>
+            
+            <div class="text-sm text-pastel-muted mb-2 flex items-center">
+                <span class="jpa-sparkles mr-1 animate-pulse"></span> TASKS
+            </div>
+            <ul id="tasks-list" class="overflow-y-auto space-y-1 flex-grow">
+                <!-- Task links will be generated here -->
+            </ul>
+            
+            <div class="mt-auto pt-4 border-t border-pastel-muted border-opacity-20">
+                <button id="graph-view-btn" class="w-full py-2 text-pastel-muted hover:text-pastel-accent transition-all flex items-center justify-center hover:scale-105">
+                    <span class="jpa-milky_way text-xl mr-2"></span> Graph View
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Input area -->
+            <div class="p-4 border-b border-pastel-muted border-opacity-20 bg-pastel-darkBg bg-opacity-90">
+                <input type="text" id="item" class="w-full p-3 rounded-lg bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-30 
+                       text-pastel-darkText placeholder-pastel-muted focus:outline-none focus:border-pastel-accent shadow-inner hover:border-opacity-50 transition-all" 
+                       autofocus placeholder="Create a new task...">
+            </div>
+            
+            <!-- Task and notes area -->
+            <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
+                <!-- Tasks column -->
+                <div class="w-full md:w-1/2 p-4 overflow-y-auto bg-pastel-darkBg bg-opacity-95 animate__animated animate__fadeIn">
+                    <h2 class="text-xl font-semibold mb-4 text-pastel-accent flex items-center">
+                        <span class="jpa-memo text-2xl mr-2"></span> Tasks
+                    </h2>
+                    <ul id="to-do-box" class="space-y-3">
+                        <!-- Tasks will go here -->
+                    </ul>
+                </div>
+                
+                <!-- Notes column -->
+                <div class="w-full md:w-1/2 border-t md:border-t-0 md:border-l border-pastel-muted border-opacity-20 p-4 overflow-y-auto bg-pastel-darkBg bg-opacity-90 animate__animated animate__fadeIn animate__delay-1s">
+                    <h2 class="text-xl font-semibold mb-4 text-pastel-accent flex items-center">
+                        <span class="jpa-pushpin text-2xl mr-2"></span> Connected Notes
+                    </h2>
+                    
+                    <div id="task-notes" class="bg-pastel-darkBg bg-opacity-70 rounded-lg p-4 min-h-[200px] shadow-md hover:shadow-lg transition-all">
+                        <p class="text-pastel-muted text-center animate-pulse" id="notes-placeholder">Select a task to see or add notes</p>
+                        
+                        <div id="notes-editor" class="hidden">
+                            <div class="mb-3 flex justify-between items-center flex-wrap gap-2">
+                                <span class="text-pastel-accent">Notes for: <span id="current-task-title">Task</span></span>
+                                <button id="add-note-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-30 text-pastel-accent px-3 py-1 rounded-lg text-sm transition-all hover:scale-105 hover:shadow-sm">
+                                    <span class="jpa-plus"></span> Add Note
+                                </button>
+                            </div>
+                            
+                            <div id="notes-container" class="space-y-4">
+                                <!-- Notes will be added here -->
+                            </div>
+                            
+                            <div id="new-note-form" class="mt-4 hidden animate__animated animate__fadeIn">
+                                <textarea id="note-content" class="w-full h-32 bg-pastel-darkBg border border-pastel-muted border-opacity-30 rounded-lg p-3 mb-2 
+                                          focus:outline-none focus:border-pastel-accent shadow-inner" 
+                                          placeholder="Write a new note..."></textarea>
+                                          
+                                <div class="flex justify-end space-x-2">
+                                    <button id="cancel-note-btn" class="bg-pastel-muted bg-opacity-20 hover:bg-opacity-30 text-pastel-muted px-4 py-2 rounded-lg transition-all hover:shadow-sm">
+                                        Cancel
+                                    </button>
+                                    <button id="save-note-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-30 text-pastel-accent px-4 py-2 rounded-lg transition-all hover:shadow-md hover:-translate-y-0.5">
+                                        Save Note
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Graph view (hidden by default) -->
+            <div id="graph-container" class="fixed inset-0 bg-pastel-darkBg bg-opacity-95 flex items-center justify-center z-10 hidden animate__animated animate__fadeIn">
+                <div class="absolute top-4 right-4 flex space-x-2">
+                    <button id="refresh-graph-btn" class="text-pastel-muted hover:text-pastel-accent text-xl transition-all hover:scale-110 p-2 bg-pastel-accent bg-opacity-10 hover:bg-opacity-20 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
+                    <button id="close-graph-btn" class="text-pastel-muted hover:text-pastel-accent text-xl transition-all hover:scale-110 p-2 bg-pastel-accent bg-opacity-10 hover:bg-opacity-20 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="absolute top-4 left-4 text-pastel-accent font-medium px-3 py-2 bg-pastel-darkBg bg-opacity-70 rounded-lg backdrop-blur-sm">
+                    <span class="jpa-milky_way text-xl mr-2"></span> Knowledge Graph
+                </div>
+                <div id="graph-canvas" class="w-full h-full"></div>
+                <div id="graph-tooltip" class="hidden absolute bg-pastel-darkBg p-3 rounded-lg shadow-lg border border-pastel-accent border-opacity-30 max-w-xs backdrop-blur-sm"></div>
+                
+                <!-- Graph loading animation -->
+                <div id="graph-loading" class="absolute inset-0 flex items-center justify-center bg-pastel-darkBg bg-opacity-70 z-20 hidden backdrop-blur-sm">
+                    <div class="animate-spin-slow text-pastel-accent text-4xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v1m6 11h2m-6 0h-2m0 6v-1m6-11h-2m-6 0H4m0 6h2" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Help text for graph interaction -->
+                <div class="graph-help-text">
+                    🖱️ Scroll to zoom • Drag to move around • Drag nodes to reposition
+                </div>
+                
+                <!-- Graph speed control -->
+                <div class="graph-controls">
+                    <label for="graph-speed">Movement Speed:</label>
+                    <input type="range" id="graph-speed" class="graph-speed-slider" min="0" max="100" value="50">
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Vault modal -->
+    <div id="vault-modal" class="fixed inset-0 bg-pastel-darkBg bg-opacity-95 flex items-center justify-center z-50 hidden animate__animated animate__fadeIn">
+        <div class="bg-pastel-darkBg p-6 rounded-xl shadow-2xl border border-pastel-accent border-opacity-30 w-11/12 max-w-md">
+            <h3 class="text-xl font-semibold mb-6 text-pastel-accent flex items-center">
+                <span class="jpa-file_folder text-2xl mr-2"></span> Vaults
+            </h3>
+            
+            <div id="vaults-list" class="space-y-2 mb-6 max-h-[40vh] overflow-y-auto">
+                <!-- Vaults will be listed here -->
+            </div>
+            
+            <div class="border-t border-pastel-muted border-opacity-20 pt-4">
+                <div class="flex items-center gap-2">
+                    <input type="text" id="new-vault-name" placeholder="New vault name..." 
+                           class="flex-1 p-2 rounded-lg bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-30 
+                                  text-pastel-darkText placeholder-pastel-muted focus:outline-none focus:border-pastel-accent">
+                    <button id="create-vault-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-30 text-pastel-accent px-4 py-2 rounded-lg">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/bf520e6492.js" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app-ui-enhancement.js"></script>
+    <!-- Add vault manager script -->
+    <script src="js/vault-manager.js"></script>
+</body>
+
+</html>

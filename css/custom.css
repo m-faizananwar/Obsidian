@@ -1,0 +1,492 @@
+/* Animations and additional styling beyond Tailwind */
+
+/* Fade in animation for tasks */
+#to-do-box li {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Highlight animation for connections */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(203, 166, 247, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(203, 166, 247, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(203, 166, 247, 0);
+    }
+}
+
+#connected-tasks li:hover {
+    animation: pulse 1.5s infinite;
+}
+
+/* Graph animations */
+#graph-container {
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease;
+}
+
+#graph-canvas line {
+    stroke-dasharray: 5;
+    animation: dash 30s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: 1000;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #181825;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3a3b4c;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #cba6f7;
+}
+
+/* Note editor styling */
+#note-content {
+    transition: border-color 0.2s ease;
+    min-height: 150px;
+}
+
+/* Task hover effect */
+#to-do-box li {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#to-do-box li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Cute emoji styling */
+#tasks-list li::before {
+    content: "✨";
+    margin-right: 6px;
+    opacity: 0.7;
+}
+
+/* Additional styles for the markdown-like syntax in notes */
+#note-content [data-tag] {
+    color: #cba6f7;
+    font-weight: 500;
+}
+
+/* Graph node pulse animation when hovering */
+.node:hover circle {
+    animation: nodePulse 1.5s infinite;
+}
+
+@keyframes nodePulse {
+    0% {
+        r: 8;
+    }
+    50% {
+        r: 10;
+    }
+    100% {
+        r: 8;
+    }
+}
+
+/* Enhanced UI Animations and Responsiveness */
+    
+/* Sidebar animation */
+.sidebar-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-item:hover {
+    padding-left: 0.75rem;
+    background-color: rgba(201, 155, 255, 0.1);
+}
+
+/* Button press effect */
+button {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Floating animation for header icons */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+h1 .jpa-star_struck, 
+h2 .jpa-memo, 
+h2 .jpa-pushpin {
+    animation: float 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* Task completion animation */
+.completed-task {
+    animation: completeTask 0.5s forwards;
+}
+
+@keyframes completeTask {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+}
+
+/* Input field focus animation */
+input:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(201, 155, 255, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Notes hover effect */
+#notes-container .note {
+    transition: all 0.3s ease;
+}
+
+#notes-container .note:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* New Task button pulsing effect */
+@keyframes gentle-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(201, 155, 255, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(201, 155, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(201, 155, 255, 0);
+    }
+}
+
+#new-task-btn {
+    animation: gentle-pulse 2s infinite;
+}
+
+/* Task list empty state */
+#to-do-box:empty::after {
+    content: "No tasks yet. Create one!";
+    display: block;
+    text-align: center;
+    padding: 2rem;
+    color: var(--pastel-muted);
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+    .flex.h-screen.overflow-hidden {
+        flex-direction: column;
+    }
+    
+    .w-64 {
+        width: 100%;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+    
+    .flex.flex-1.overflow-hidden {
+        flex-direction: column;
+    }
+    
+    .w-1\/2 {
+        width: 100%;
+    }
+    
+    .border-l {
+        border-left: none;
+        border-top: 1px solid rgba(154, 134, 165, 0.2);
+    }
+}
+
+/* Task item animations */
+#to-do-box li {
+    position: relative;
+    overflow: hidden;
+}
+
+#to-do-box li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(201, 155, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+#to-do-box li:hover::after {
+    transform: translateX(100%);
+}
+
+/* Task actions fade-in effect */
+#to-do-box li .task-actions {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+#to-do-box li:hover .task-actions {
+    opacity: 1;
+}
+
+/* Graph view enhanced animations */
+#graph-canvas .node {
+    transition: all 0.3s ease;
+}
+
+#graph-canvas .node:hover {
+    filter: drop-shadow(0 0 8px rgba(201, 155, 255, 0.7));
+}
+
+/* Status indicators for tasks */
+.task-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.task-status.pending {
+    background-color: #ff9dd2;
+}
+
+.task-status.completed {
+    background-color: #a6e3e9;
+}
+
+/* Vault styles */
+.vault-item {
+    @apply flex items-center justify-between p-3 rounded-lg bg-pastel-darkBg bg-opacity-50 border border-pastel-muted border-opacity-20 
+           hover:bg-opacity-70 transition-all cursor-pointer;
+}
+
+.vault-item.active {
+    @apply border-pastel-accent bg-pastel-accent bg-opacity-10;
+}
+
+.vault-actions {
+    @apply flex items-center gap-2 opacity-0 transition-opacity;
+}
+
+.vault-item:hover .vault-actions {
+    @apply opacity-100;
+}
+
+.vault-count {
+    @apply text-xs bg-pastel-accent bg-opacity-20 px-2 py-0.5 rounded-full text-pastel-accent;
+}
+
+#vault-selector {
+    @apply relative;
+}
+
+#vault-selector::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-full h-0.5 bg-pastel-accent transform scale-x-0 transition-transform;
+}
+
+#vault-selector:hover::after {
+    @apply scale-x-100;
+}
+
+/* Vault modal animation */
+#vault-modal .bg-pastel-darkBg {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Full-screen graph view */
+#graph-container.fixed {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 50;
+    background-color: rgba(42, 27, 55, 0.98);
+    padding: 0;
+    overflow: hidden;
+}
+
+#graph-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Full-screen graph view enhancements */
+#graph-container svg {
+    cursor: move;
+}
+
+#graph-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Graph node colors with better visibility */
+.node circle {
+    transition: all 0.3s ease;
+}
+
+.node:hover circle {
+    filter: brightness(1.2);
+    stroke-width: 2px;
+    stroke: rgba(255, 255, 255, 0.7);
+}
+
+/* Active animation for graph refresh button */
+#refresh-graph-btn.active {
+    background-color: rgba(201, 155, 255, 0.3) !important;
+}
+
+#refresh-graph-btn.active svg {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Tooltip enhancement for better visibility */
+#graph-tooltip {
+    pointer-events: none;
+    z-index: 100;
+    max-width: 250px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(201, 155, 255, 0.4);
+}
+
+/* Help message for graph navigation */
+.graph-help-text {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(42, 27, 55, 0.7);
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: rgba(201, 155, 255, 0.7);
+    font-size: 0.8rem;
+    pointer-events: none;
+    opacity: 0.7;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(201, 155, 255, 0.2);
+    white-space: nowrap;
+}
+
+/* Graph refresh button animation */
+#refresh-graph-btn.active svg {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Graph controls */
+.graph-controls {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    background: rgba(42, 27, 55, 0.7);
+    border: 1px solid rgba(201, 155, 255, 0.3);
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.graph-controls label {
+    color: rgba(201, 155, 255, 0.8);
+    font-size: 0.8rem;
+}
+
+.graph-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 150px;
+    height: 4px;
+    background: rgba(201, 155, 255, 0.3);
+    outline: none;
+    border-radius: 2px;
+}
+
+.graph-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: rgba(201, 155, 255, 0.8);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.graph-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: rgba(201, 155, 255, 1);
+}
