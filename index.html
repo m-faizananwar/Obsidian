@@ -1,286 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obsidian-inspired Todo</title>
+    <title>Obsidian Todo | Professional Edition</title>
     
     <!-- Favicon -->
-    <link rel="icon" href="./image/obs.jpg" type="image/jpeg">
+    <link rel="icon" href="/image/obs.jpg" type="image/jpeg">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Cute font - Quicksand -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- JoyPixels for cute emojis -->
-    <script src="https://cdn.jsdelivr.net/npm/emoji-toolkit@7.0.0/lib/js/joypixels.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-toolkit@7.0.0/extras/css/joypixels.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./src/styles/main.css">
     
-    <!-- Animate.css for additional animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
-    <!-- Tippy.js for tooltips -->
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
-    
-    <!-- DotLottie player for cute animations -->
-    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-    
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="css/custom.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pastel: {
-                            bg: '#fef6ff',
-                            darkBg: '#2a1b37',
-                            nebulaBg: '#1e0a33', // Deeper violet background
-                            accent: '#c99bff',
-                            secondary: '#ff9dd2',
-                            tertiary: '#a6e3e9',
-                            neon: '#84ffbd', // New neon accent
-                            starlight: '#fff7cc', // Soft yellow glow
-                            dream: '#ba83ff', // Stronger purple
-                            text: '#40304a',
-                            darkText: '#e9d8ff',
-                            muted: '#9a86a5'
-                        }
-                    },
-                    fontFamily: {
-                        cute: ['Quicksand', 'sans-serif'],
-                    },
-                    animation: {
-                        'spin-slow': 'spin 3s linear infinite',
-                        'pulse-gentle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                          '0%, 100%': { transform: 'translateY(0)' },
-                          '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        .lottie-corner {
-            position: fixed;
-            z-index: 50;
-            pointer-events: none;
-        }
-        .lottie-top-left { top: 0; left: 0; }
-        .lottie-top-right { top: 0; right: 0; }
-        .lottie-bottom-left { bottom: 0; left: 0; }
-        .lottie-bottom-right { bottom: 0; right: 0; }
-        .lottie-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* Add a subtle gradient background */
-        body {
-            background: linear-gradient(135deg, #1e0a33 0%, #2a1b37 100%);
-        }
-        
-        /* Add a subtle glow to buttons */
-        button:hover {
-            box-shadow: 0 0 10px rgba(201, 155, 255, 0.5);
-        }
-    </style>
+    <!-- External Icon Support (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
 
 <body class="bg-pastel-nebulaBg text-pastel-darkText font-cute">
-    <!-- Lottie decorations -->
-    <div class="lottie-corner lottie-top-left">
+    <!-- Lottie decorations (Kept from original design) -->
+    <div class="lottie-corner top-0 left-0 fixed z-50 pointer-events-none">
         <dotlottie-player src="https://lottie.host/d181ebe8-9310-4d10-9cb7-cf0409473cd8/zBtILf7o0o.lottie" background="transparent" speed="1" style="width: 120px; height: 120px" loop autoplay></dotlottie-player>
     </div>
     
-    <div class="lottie-corner lottie-top-right">
-        <dotlottie-player src="https://lottie.host/27564a95-50ef-4497-8d67-0589add4b0f8/GcGzQSxFbg.lottie" background="transparent" speed="1" style="width: 110px; height: 110px" class="lottie-float" loop autoplay></dotlottie-player>
+    <div class="lottie-corner top-0 right-0 fixed z-50 pointer-events-none float-animation">
+        <dotlottie-player src="https://lottie.host/27564a95-50ef-4497-8d67-0589add4b0f8/GcGzQSxFbg.lottie" background="transparent" speed="1" style="width: 110px; height: 110px" loop autoplay></dotlottie-player>
     </div>
     
-    <div class="lottie-corner lottie-bottom-left">
+    <div class="lottie-corner bottom-0 left-0 fixed z-50 pointer-events-none">
         <dotlottie-player src="https://lottie.host/326d5b32-1e45-4259-a719-118dacf8737b/rW1FtiKu7Q.lottie" background="transparent" speed="1" style="width: 140px; height: 140px" loop autoplay></dotlottie-player>
     </div>
     
-    <div class="lottie-corner lottie-bottom-right">
+    <div class="lottie-corner bottom-0 right-0 fixed z-50 pointer-events-none">
         <dotlottie-player src="https://lottie.host/7777fef1-871b-4a4a-887e-d1cdac657889/7JzC94vmLG.lottie" background="transparent" speed="1" style="width: 150px; height: 150px" loop autoplay></dotlottie-player>
     </div>
     
-    <div class="flex h-screen overflow-hidden flex-col md:flex-row">
+    <div class="flex h-screen overflow-hidden flex-col md:flex-row relative z-10 transition-opacity duration-500" id="app-container">
         <!-- Sidebar -->
-        <div class="w-full md:w-64 bg-opacity-80 bg-pastel-darkBg p-4 flex flex-col shadow-lg animate__animated animate__fadeIn">
+        <aside class="w-full md:w-64 bg-opacity-80 bg-pastel-darkBg p-4 flex flex-col shadow-lg backdrop-blur-md border-r border-pastel-muted border-opacity-10">
             <!-- Vault selector -->
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center bg-pastel-darkBg bg-opacity-50 px-3 py-2 rounded-lg border border-pastel-muted border-opacity-20 w-full cursor-pointer hover:bg-opacity-70 transition-all" id="vault-selector">
-                    <span class="jpa-file_folder text-xl mr-2 text-pastel-accent"></span>
+                    <i class="fas fa-folder text-xl mr-2 text-pastel-accent"></i>
                     <span id="current-vault-name" class="text-sm text-pastel-darkText truncate">Loading vault...</span>
-                    <span class="ml-auto text-pastel-muted">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </span>
+                    <i class="fas fa-chevron-down ml-auto text-pastel-muted text-xs"></i>
                 </div>
             </div>
+            
             <h1 class="text-2xl font-bold text-pastel-accent mb-6 flex items-center">
-                <span class="jpa-star_struck text-2xl mr-2"></span> Dreamy Notes
+                <i class="fas fa-star text-lg mr-2 animate-pulse"></i> Dreamy Notes
             </h1>
             
             <div class="mb-4">
-                <button id="new-task-btn" class="bg-pastel-accent bg-opacity-30 hover:bg-opacity-40 text-pastel-darkText w-full py-2 rounded-lg flex items-center justify-center transition-all shadow-sm hover:-translate-y-1 hover:shadow-md">
-                    <span class="jpa-pencil text-xl mr-2"></span> New Task
+                <button id="new-task-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-40 text-pastel-accent w-full py-2.5 rounded-xl flex items-center justify-center transition-all border border-pastel-accent border-opacity-20">
+                    <i class="fas fa-pencil-alt text-sm mr-2"></i> New Task
                 </button>
             </div>
             
-            <div class="text-sm text-pastel-muted mb-2 flex items-center">
-                <span class="jpa-sparkles mr-1 animate-pulse"></span> TASKS
+            <div class="text-xs font-bold text-pastel-muted mb-2 tracking-widest uppercase">
+                Tasks
             </div>
-            <ul id="tasks-list" class="overflow-y-auto space-y-1 flex-grow">
-                <!-- Task links will be generated here -->
+            <ul id="tasks-list" class="overflow-y-auto space-y-1 flex-grow pr-1">
+                <!-- Task links generated by main.js -->
             </ul>
             
-            <div class="mt-auto pt-4 border-t border-pastel-muted border-opacity-20">
-                <button id="graph-view-btn" class="w-full py-2 text-pastel-muted hover:text-pastel-accent transition-all flex items-center justify-center hover:scale-105">
-                    <span class="jpa-milky_way text-xl mr-2"></span> Graph View
+            <div class="mt-auto pt-4 border-t border-pastel-muted border-opacity-10">
+                <button id="graph-view-btn" class="btn-secondary w-full py-2 text-pastel-muted hover:text-pastel-accent transition-all flex items-center justify-center hover:scale-105">
+                    <i class="fas fa-project-diagram mr-2"></i> Graph View
                 </button>
             </div>
-        </div>
+        </aside>
         
         <!-- Main content -->
-        <main class="flex-1 flex flex-col overflow-hidden">
+        <main class="flex-1 flex flex-col overflow-hidden bg-transparent">
             <!-- Input area -->
-            <div class="p-4 border-b border-pastel-muted border-opacity-20 bg-pastel-darkBg bg-opacity-90">
-                <input type="text" id="item" class="w-full p-3 rounded-lg bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-30 
-                       text-pastel-darkText placeholder-pastel-muted focus:outline-none focus:border-pastel-accent shadow-inner hover:border-opacity-50 transition-all" 
-                       autofocus placeholder="Create a new task...">
+            <div class="p-6 border-b border-pastel-muted border-opacity-10 bg-pastel-darkBg bg-opacity-40 backdrop-blur-sm">
+                <div class="relative max-w-4xl mx-auto w-full">
+                    <i class="fas fa-plus absolute left-4 top-1/2 -translate-y-1/2 text-pastel-muted"></i>
+                    <input type="text" id="item" 
+                           class="w-full p-4 pl-12 rounded-2xl bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-20 
+                                  text-pastel-darkText placeholder-pastel-muted focus:outline-none focus:border-pastel-accent transition-all shadow-xl" 
+                           autofocus placeholder="Create a new task...">
+                </div>
             </div>
             
             <!-- Task and notes area -->
             <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
                 <!-- Tasks column -->
-                <div class="w-full md:w-1/2 p-4 overflow-y-auto bg-pastel-darkBg bg-opacity-95 animate__animated animate__fadeIn">
-                    <h2 class="text-xl font-semibold mb-4 text-pastel-accent flex items-center">
-                        <span class="jpa-memo text-2xl mr-2"></span> Tasks
+                <section class="w-full md:w-1/2 p-6 overflow-y-auto bg-pastel-darkBg bg-opacity-20">
+                    <h2 class="text-lg font-bold mb-6 text-pastel-accent flex items-center uppercase tracking-widest">
+                        <i class="fas fa-list-ul mr-2 text-sm"></i> Focus List
                     </h2>
-                    <ul id="to-do-box" class="space-y-3">
-                        <!-- Tasks will go here -->
+                    <ul id="to-do-box" class="space-y-4">
+                        <!-- Tasks go here -->
                     </ul>
-                </div>
+                </section>
                 
                 <!-- Notes column -->
-                <div class="w-full md:w-1/2 border-t md:border-t-0 md:border-l border-pastel-muted border-opacity-20 p-4 overflow-y-auto bg-pastel-darkBg bg-opacity-90 animate__animated animate__fadeIn animate__delay-1s">
-                    <h2 class="text-xl font-semibold mb-4 text-pastel-accent flex items-center">
-                        <span class="jpa-pushpin text-2xl mr-2"></span> Connected Notes
+                <section class="w-full md:w-1/2 md:border-l border-pastel-muted border-opacity-10 p-6 overflow-y-auto bg-pastel-darkBg bg-opacity-30">
+                    <h2 class="text-lg font-bold mb-6 text-pastel-accent flex items-center uppercase tracking-widest">
+                        <i class="fas fa-sticky-note mr-2 text-sm"></i> Note Details
                     </h2>
                     
-                    <div id="task-notes" class="bg-pastel-darkBg bg-opacity-70 rounded-lg p-4 min-h-[200px] shadow-md hover:shadow-lg transition-all">
-                        <p class="text-pastel-muted text-center animate-pulse" id="notes-placeholder">Select a task to see or add notes</p>
+                    <div id="task-notes" class="glass-effect rounded-2xl p-6 min-h-[300px] transition-all">
+                        <div id="notes-placeholder" class="text-center py-20">
+                            <i class="fas fa-mouse-pointer text-4xl text-pastel-muted opacity-20 mb-4 block"></i>
+                            <p class="text-pastel-muted">Select a task to explore its thoughts</p>
+                        </div>
                         
                         <div id="notes-editor" class="hidden">
-                            <div class="mb-3 flex justify-between items-center flex-wrap gap-2">
-                                <span class="text-pastel-accent">Notes for: <span id="current-task-title">Task</span></span>
-                                <button id="add-note-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-30 text-pastel-accent px-3 py-1 rounded-lg text-sm transition-all hover:scale-105 hover:shadow-sm">
-                                    <span class="jpa-plus"></span> Add Note
+                            <div class="mb-6 flex justify-between items-center bg-pastel-darkBg bg-opacity-50 p-3 rounded-xl border border-pastel-muted border-opacity-10">
+                                <span class="text-pastel-darkText font-medium text-sm truncate max-w-[70%]" id="current-task-title">Task</span>
+                                <button id="add-note-btn" class="bg-pastel-accent bg-opacity-30 hover:bg-opacity-100 hover:text-pastel-darkBg text-pastel-accent px-3 py-1 rounded-lg text-xs font-bold transition-all uppercase tracking-tighter">
+                                    <i class="fas fa-plus mr-1"></i> Add
                                 </button>
                             </div>
                             
-                            <div id="notes-container" class="space-y-4">
-                                <!-- Notes will be added here -->
-                            </div>
+                            <div id="notes-container" class="space-y-4"></div>
                             
-                            <div id="new-note-form" class="mt-4 hidden animate__animated animate__fadeIn">
-                                <textarea id="note-content" class="w-full h-32 bg-pastel-darkBg border border-pastel-muted border-opacity-30 rounded-lg p-3 mb-2 
-                                          focus:outline-none focus:border-pastel-accent shadow-inner" 
-                                          placeholder="Write a new note..."></textarea>
+                            <div id="new-note-form" class="mt-6 hidden animate-in slide-in-from-bottom-4 duration-300">
+                                <textarea id="note-content" 
+                                          class="w-full h-40 bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-20 rounded-xl p-4 mb-3 
+                                                 text-pastel-darkText text-sm focus:outline-none focus:border-pastel-accent shadow-inner resize-none" 
+                                          placeholder="Capture your thoughts here..."></textarea>
                                           
-                                <div class="flex justify-end space-x-2">
-                                    <button id="cancel-note-btn" class="bg-pastel-muted bg-opacity-20 hover:bg-opacity-30 text-pastel-muted px-4 py-2 rounded-lg transition-all hover:shadow-sm">
+                                <div class="flex justify-end space-x-3">
+                                    <button id="cancel-note-btn" class="px-4 py-2 rounded-xl text-sm text-pastel-muted hover:text-pastel-accent transition-all uppercase font-bold tracking-widest">
                                         Cancel
                                     </button>
-                                    <button id="save-note-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-30 text-pastel-accent px-4 py-2 rounded-lg transition-all hover:shadow-md hover:-translate-y-0.5">
+                                    <button id="save-note-btn" class="bg-pastel-accent px-6 py-2 rounded-xl text-sm text-pastel-darkBg font-bold transition-all shadow-lg hover:-translate-y-1 active:scale-95 uppercase tracking-widest">
                                         Save Note
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
             
-            <!-- Graph view (hidden by default) -->
-            <div id="graph-container" class="fixed inset-0 bg-pastel-darkBg bg-opacity-95 flex items-center justify-center z-10 hidden animate__animated animate__fadeIn">
-                <div class="absolute top-4 right-4 flex space-x-2">
-                    <button id="refresh-graph-btn" class="text-pastel-muted hover:text-pastel-accent text-xl transition-all hover:scale-110 p-2 bg-pastel-accent bg-opacity-10 hover:bg-opacity-20 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
+            <!-- Graph view -->
+            <div id="graph-container" class="fixed inset-0 bg-[#0c051a] bg-opacity-95 z-[100] hidden items-center justify-center p-4">
+                <div class="absolute top-6 right-6 flex space-x-4 z-[110]">
+                    <button id="refresh-graph-btn" class="w-10 h-10 flex items-center justify-center rounded-full bg-pastel-accent bg-opacity-10 hover:bg-opacity-100 text-pastel-accent hover:text-pastel-darkBg transition-all">
+                        <i class="fas fa-sync-alt"></i>
                     </button>
-                    <button id="close-graph-btn" class="text-pastel-muted hover:text-pastel-accent text-xl transition-all hover:scale-110 p-2 bg-pastel-accent bg-opacity-10 hover:bg-opacity-20 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <button id="close-graph-btn" class="w-10 h-10 flex items-center justify-center rounded-full bg-pastel-secondary bg-opacity-10 hover:bg-opacity-100 text-pastel-secondary hover:text-pastel-darkBg transition-all">
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <div class="absolute top-4 left-4 text-pastel-accent font-medium px-3 py-2 bg-pastel-darkBg bg-opacity-70 rounded-lg backdrop-blur-sm">
-                    <span class="jpa-milky_way text-xl mr-2"></span> Knowledge Graph
-                </div>
-                <div id="graph-canvas" class="w-full h-full"></div>
-                <div id="graph-tooltip" class="hidden absolute bg-pastel-darkBg p-3 rounded-lg shadow-lg border border-pastel-accent border-opacity-30 max-w-xs backdrop-blur-sm"></div>
                 
-                <!-- Graph loading animation -->
-                <div id="graph-loading" class="absolute inset-0 flex items-center justify-center bg-pastel-darkBg bg-opacity-70 z-20 hidden backdrop-blur-sm">
-                    <div class="animate-spin-slow text-pastel-accent text-4xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v1m6 11h2m-6 0h-2m0 6v-1m6-11h-2m-6 0H4m0 6h2" />
-                        </svg>
+                <div class="absolute top-6 left-6 flex items-center space-x-3 bg-pastel-darkBg bg-opacity-70 px-4 py-2 rounded-xl border border-pastel-accent border-opacity-20 backdrop-blur-sm z-[110]">
+                    <i class="fas fa-project-diagram text-pastel-accent"></i>
+                    <span class="text-sm font-bold text-pastel-darkText uppercase tracking-widest">Knowledge Galaxy</span>
+                </div>
+                
+                <div id="graph-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+                <div id="graph-tooltip" class="hidden absolute bg-pastel-darkBg bg-opacity-90 p-4 rounded-2xl shadow-2xl border border-pastel-accent border-opacity-30 max-w-xs backdrop-blur-md z-[120]"></div>
+                
+                <div id="graph-loading" class="absolute inset-0 flex items-center justify-center bg-pastel-darkBg bg-opacity-80 z-[130] hidden">
+                    <div class="animate-spin-slow text-pastel-accent">
+                        <i class="fas fa-spinner text-5xl"></i>
                     </div>
                 </div>
                 
-                <!-- Help text for graph interaction -->
                 <div class="graph-help-text">
-                    🖱️ Scroll to zoom • Drag to move around • Drag nodes to reposition
-                </div>
-                
-                <!-- Graph speed control -->
-                <div class="graph-controls">
-                    <label for="graph-speed">Movement Speed:</label>
-                    <input type="range" id="graph-speed" class="graph-speed-slider" min="0" max="100" value="50">
+                    Scroll to zoom • Drag to navigate • Drag nodes to interact
                 </div>
             </div>
         </main>
     </div>
     
     <!-- Vault modal -->
-    <div id="vault-modal" class="fixed inset-0 bg-pastel-darkBg bg-opacity-95 flex items-center justify-center z-50 hidden animate__animated animate__fadeIn">
-        <div class="bg-pastel-darkBg p-6 rounded-xl shadow-2xl border border-pastel-accent border-opacity-30 w-11/12 max-w-md">
-            <h3 class="text-xl font-semibold mb-6 text-pastel-accent flex items-center">
-                <span class="jpa-file_folder text-2xl mr-2"></span> Vaults
+    <div id="vault-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[200] hidden">
+        <div class="bg-[#1a1127] p-8 rounded-3xl shadow-2xl border border-pastel-accent border-opacity-20 w-11/12 max-w-md transform animate-in zoom-in-95 duration-300">
+            <h3 class="text-xl font-bold mb-8 text-pastel-accent flex items-center uppercase tracking-tighter">
+                <i class="fas fa-archive mr-2"></i> Select Your Vault
             </h3>
             
-            <div id="vaults-list" class="space-y-2 mb-6 max-h-[40vh] overflow-y-auto">
-                <!-- Vaults will be listed here -->
-            </div>
+            <div id="vaults-list" class="space-y-3 mb-8 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar"></div>
             
-            <div class="border-t border-pastel-muted border-opacity-20 pt-4">
-                <div class="flex items-center gap-2">
+            <div class="border-t border-pastel-muted border-opacity-10 pt-6">
+                <div class="flex items-center gap-3">
                     <input type="text" id="new-vault-name" placeholder="New vault name..." 
-                           class="flex-1 p-2 rounded-lg bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-30 
-                                  text-pastel-darkText placeholder-pastel-muted focus:outline-none focus:border-pastel-accent">
-                    <button id="create-vault-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-30 text-pastel-accent px-4 py-2 rounded-lg">
+                           class="flex-1 p-3 rounded-xl bg-pastel-darkBg bg-opacity-60 border border-pastel-muted border-opacity-20 
+                                  text-pastel-darkText text-sm focus:outline-none focus:border-pastel-accent">
+                    <button id="create-vault-btn" class="bg-pastel-accent bg-opacity-20 hover:bg-opacity-100 text-pastel-accent hover:text-pastel-darkBg px-6 py-3 rounded-xl text-sm font-bold transition-all uppercase tracking-widest">
                         Create
                     </button>
                 </div>
@@ -288,12 +194,6 @@
         </div>
     </div>
     
-    <script src="https://kit.fontawesome.com/bf520e6492.js" crossorigin="anonymous"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/app-ui-enhancement.js"></script>
-    <script src="js/vault-manager.js"></script>
-    <script src="js/theme-manager.js"></script>
+    <script type="module" src="./src/main.js"></script>
 </body>
-
 </html>

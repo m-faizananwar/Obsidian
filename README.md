@@ -1,42 +1,65 @@
-# Kawaii Todo List
+# 🌌 Obsidian Todo | Modern & Modular
 
-A cute and functional todo list application with anime-inspired pixel art characters, task notes, and cute emojis.
+A professional, Obsidian-inspired productivity application featuring a Knowledge Galaxy (Graph Visualization), modular architecture, and premium aesthetics. Built with **Vite**, **Tailwind CSS**, and **D3.js**.
 
-## Features
+![License](https://img.shields.io/badge/license-MIT-purple.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-### ✨ Animated Pixel Art Characters
-- Choose between different kawaii anime-inspired characters
-- Characters are displayed with a gentle floating animation
-- Your character preference is saved for future visits
+## ✨ Core Features
 
-### 📝 Task Notes
-- Add detailed notes to any task
-- Notes indicator shows which tasks have attached notes
-- Edit notes anytime by clicking the note button
+-   **Modular Architecture**: Fully refactored into ES6 modules for scalability.
+-   **Knowledge Galaxy**: Interactive D3.js graph visualization connecting tasks and concepts.
+-   **Vault Management**: Separate environments (Vaults) using local storage.
+-   **Premium Aesthetics**: Glassmorphism, starry backgrounds, and fluid particle animations.
+-   **Integrated Emojis**: Seamless JoyPixels support for task expression.
 
-### 🌈 Cute Design Elements
-- Random kawaii emojis for each task
-- Animated starry background
-- Add emojis to your notes with the emoji picker
-- Smooth animations for all interactions
+## 🚀 Getting Started
 
-### 💪 Functionality
-- Add, complete, and delete tasks
-- Clear completed tasks with one click
-- Task counter shows remaining tasks
-- All data is saved to your browser's local storage
+### Prerequisites
 
-## How to Use
+-   **Node.js**: v18 or later
+-   **npm** or **yarn**
 
-1. Type a task and press Enter or click the "+" button
-2. Click a task to mark it as complete/incomplete
-3. Click the note icon to add notes to a task
-4. Click the trash icon to delete a task
-5. Select a different character using the character picker
-6. Clear all completed tasks with the "Clear Completed" button
+### Installation
 
-## Credits
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/m-faizananwar/Obsidian.git
+    cd Obsidian
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
-- Pixel art characters by [artist name]
-- Font: Poppins from Google Fonts
-- Icons from Font Awesome
+### Development
+
+Run the development server with Hot Module Replacement (HMR):
+```bash
+npm run dev
+```
+
+### Production
+
+Build the optimized bundle for deployment:
+```bash
+npm run build
+```
+The output will be in the `dist/` directory.
+
+## 🛠️ Technology Stack
+
+-   **Framework**: [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+-   **Visualization**: [D3.js](https://d3js.org/) - Data-Driven Documents
+-   **Tooltips**: [Tippy.js](https://atomiks.github.io/tippyjs/) - Accessible Tooltips
+-   **Emojis**: [JoyPixels](https://www.joypixels.com/) - Premium emoji toolkit
+-   **Animations**: [Animate.css](https://animate.style/) & [Lottie](https://lottiefiles.com/)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+*Crafted with 💜 by m-faizananwar | 2025*

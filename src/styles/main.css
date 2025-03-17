@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-pastel-nebulaBg text-pastel-darkText font-cute transition-colors duration-300;
+    background: linear-gradient(135deg, #1e0a33 0%, #2a1b37 100%);
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-pastel-darkBg bg-opacity-70 border border-pastel-accent border-opacity-20 shadow-lg;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 0 5px rgba(201, 155, 255, 0.5);
+  }
+
+  .hover-glow:hover {
+    @apply shadow-lg;
+    box-shadow: 0 0 15px rgba(201, 155, 255, 0.6);
+  }
+
+  .ripple-effect {
+    width: 20px;
+    height: 20px;
+    animation: ripple 0.6s ease-out;
+  }
+
+  .graph-help-text {
+    @apply fixed bottom-4 left-1/2 -translate-x-1/2 text-xs text-pastel-muted bg-pastel-darkBg bg-opacity-70 px-4 py-2 rounded-full backdrop-blur-sm pointer-events-none;
+  }
+
+  .graph-controls {
+    @apply fixed top-4 right-20 bg-pastel-darkBg bg-opacity-70 px-4 py-2 rounded-lg flex items-center space-x-3 backdrop-blur-sm;
+  }
+
+  .graph-speed-slider {
+    @apply h-1 bg-pastel-muted rounded-lg appearance-none cursor-pointer accent-pastel-accent;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes ripple {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(15); opacity: 0; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-pastel-accent bg-opacity-20 rounded-full hover:bg-opacity-40 transition-colors;
+}
